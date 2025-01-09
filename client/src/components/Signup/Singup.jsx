@@ -15,6 +15,7 @@ import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
 import AppTheme from '../../shared-theme/AppTheme';
 import { GoogleIcon} from '../Misc/CustomIcons';
+import axios from 'axios'
 
 
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -110,12 +111,12 @@ export default function SignUp(props) {
       return;
     }
     const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get('name'),
-      lastName: data.get('lastName'),
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    
+    axios.post('/signup',{
+      name:data.get('name'),
+      email:data.get('email'),
+      password:data.get('password')
+    })
   };
 
   return (

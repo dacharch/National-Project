@@ -16,6 +16,8 @@ import { styled } from '@mui/material/styles';
 import ForgotPassword from '../Misc/ForgotPassword';
 import { GoogleIcon } from '../Misc/CustomIcons';
 import AppTheme from  '../../shared-theme/AppTheme'
+import {useNavigate} from 'react-router-dom'
+import axios from 'axios';
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -65,6 +67,7 @@ export default function Login(props) {
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
   const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -80,11 +83,15 @@ export default function Login(props) {
       return;
     }
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    axios.post('/login',{
+      email:data.get('email'),
+      password:data.get('password')
+    }).then((res)=>{
+       console.log(res.data);
+    })
   };
+
+
 
   const validateInputs = () => {
     const email = document.getElementById('email');
@@ -112,6 +119,8 @@ export default function Login(props) {
 
     return isValid;
   };
+
+
 
   return (
     <AppTheme {...props}>
@@ -212,6 +221,7 @@ export default function Login(props) {
                 href="/signup"
                 variant="body2"
                 sx={{ alignSelf: 'center' }}
+                
               >
                 Sign up
               </Link>
