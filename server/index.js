@@ -14,7 +14,7 @@ connectDB();
 
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["https://national-project-48rgf9hce-neeraj-kumars-projects-1130c31c.vercel.app/"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
