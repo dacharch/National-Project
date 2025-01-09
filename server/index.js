@@ -14,14 +14,17 @@ connectDB();
 
 app.use(
   cors({
-    origin: ["https://national-project-48rgf9hce-neeraj-kumars-projects-1130c31c.vercel.app/"],
+    origin: ["https://national-project.vercel.app/"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
 app.use(cookieParser());
-app.use(express.json());
+app.use(express.json());  
 app.use("/", authRoute);
+app.get('/',(req,res)=>{
+   res.send("Server is running");
+})
 
 app.listen(8080, () => {
     console.log(`Server is listening on port 8080`);
