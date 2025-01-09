@@ -15,6 +15,7 @@ import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
 import AppTheme from '../../shared-theme/AppTheme';
 import { GoogleIcon} from '../Misc/CustomIcons';
+import { Alert, Snackbar } from '@mui/material';
 import axios from 'axios'
 
 
@@ -67,6 +68,9 @@ export default function SignUp(props) {
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
   const [nameError, setNameError] = React.useState(false);
   const [nameErrorMessage, setNameErrorMessage] = React.useState('');
+  const [snackbarOpen,setSnackbarOpen] =React.useState(false);
+  const[userMessage,setUserMessage] =React.useState("");
+  const[error,setError] =React.useState(null);
 
   const validateInputs = () => {
     const email = document.getElementById('email');
@@ -106,16 +110,25 @@ export default function SignUp(props) {
   };
 
   const handleSubmit = (event) => {
+    event.preventDefault();
     if (nameError || emailError || passwordError) {
       event.preventDefault();
       return;
     }
     const data = new FormData(event.currentTarget);
-    
+    const name = data.get('name');
+    const email = data.get('email');
+    const password = data.get('password');
+
+
     axios.post('/signup',{
-      name:data.get('name'),
-      email:data.get('email'),
-      password:data.get('password')
+      name:name,
+      email:email,
+      password:password
+    }).then((response)=>{
+      let {message} = response.data ;
+      setUserMessage(message);
+      setSnackbarOpen(true);
     })
   };
 
@@ -135,6 +148,7 @@ export default function SignUp(props) {
           </Typography>
           <Box
             component="form"
+            method='POST'
             onSubmit={handleSubmit}
             sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
           >
@@ -222,6 +236,18 @@ export default function SignUp(props) {
           </Box>
         </Card>
       </SignUpContainer>
+
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={()=>setSnackbarOpen(false)}
+        anchorOrigin={{vertical:"bottom",horizontal:"center"}}
+      >
+        <Alert onClose={()=>setSnackbarOpen(false)} severity="success">
+            {userMessage}
+        </Alert>
+          
+      </Snackbar>
     </AppTheme>
   );
 }

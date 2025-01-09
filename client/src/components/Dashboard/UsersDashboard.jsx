@@ -20,6 +20,7 @@ const UsersDashboard = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [counter,setCounter] = useState(0);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   // Fetch users from API
@@ -34,7 +35,7 @@ const UsersDashboard = () => {
         setError(err.message);
         setLoading(false);
       });
-  }, [users]);
+  }, [counter]);
 
   // Handle delete user
   const handleDelete = (userId) => {
@@ -44,7 +45,9 @@ const UsersDashboard = () => {
 
     // Make delete request
     axios
-      .delete(`/users/${userId}`)
+      .delete(`/users/${userId}`).then((res)=>{
+        setCounter(counter+1);
+      })
       .catch((err) => {
         setError("Failed to delete user.");
         console.error(err);
