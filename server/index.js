@@ -14,7 +14,7 @@ connectDB();
 
 app.use(
   cors({
-    origin: ["https://national-project-frontend.onrender.com/"],
+    origin: ["https://national-project-frontend.vercel.app/"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
