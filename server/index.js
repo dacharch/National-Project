@@ -14,7 +14,7 @@ connectDB();
 
 app.use(
   cors({
-    origin: ["https://national-project.vercel.app/"],
+    origin: ["http://localhost:5173"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -27,5 +27,5 @@ app.get('/',(req,res)=>{
 })
 
 app.listen(8080, () => {
-    console.log(`Server is listening on port 8080`);
-  });
+  console.log(`Server is listening on port 8080`);
+});

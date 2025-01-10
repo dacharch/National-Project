@@ -6,7 +6,7 @@ import axios from 'axios'
 
 
 
-axios.defaults.baseURL = 'https://national-project-q7hw.vercel.app/:8080';
+axios.defaults.baseURL = 'http://localhost:8080';
 
 function App() {
   return (
